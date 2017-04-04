@@ -2,5 +2,5 @@
 
 importFrom(ggplot2,ggplot)
 importFrom(lme4,lmer)
-importFrom(lmerTest,lsmeans)
+importFrom(lmerTest,lsmeansLT)
 importFrom(multcomp,glht)

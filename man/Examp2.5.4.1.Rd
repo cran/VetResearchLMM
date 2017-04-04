@@ -30,9 +30,22 @@ linear models and generalized linear models.
  library(lme4)
  str(ex125)
  ex125$Region1 <- factor(ex125$Region)
-  fm2.13 <- lme4::lmer(formula = Pcv ~ dose*Drug + (1|Region/Drug), data=ex125, REML = TRUE, 
-                     contrasts = list(dose = "contr.SAS", Drug = "contr.SAS")
-                     )
+  fm2.13 <- 
+  lmerTest::lmer(
+         formula    = Pcv ~ dose*Drug + (1|Region/Drug)
+       , data       = ex125
+       , REML       = TRUE
+       , control    = lmerControl()
+       , start      = NULL
+       , verbose    = 0L
+    #  , subset
+    #  , weights
+    #  , na.action
+    #  , offset
+       , contrasts  = list(dose = "contr.SAS", Drug = "contr.SAS")
+       , devFunOnly = FALSE
+    #  , ...
+       )                       
   summary(fm2.13)
  
  library(multcomp)
@@ -52,11 +65,6 @@ linear models and generalized linear models.
  summary(glht(fm2.13, linfct=Contrasts2))
  
 }
-\author{
-\enumerate{
-         \item  Muhammad Yaseen (\email{myaseen208@gmail.com})
-         }
-}
 \references{
 \enumerate{
 \item Duchateau, L. and Janssen, P. and Rowlands, G. J. (1998).\emph{Linear Mixed Models. An Introduction with applications in Veterinary Research}.
@@ -66,5 +74,9 @@ linear models and generalized linear models.
 \seealso{
 \code{\link{ex124}}
 }
+\author{
+\enumerate{
+         \item  Muhammad Yaseen (\email{myaseen208@gmail.com})
+         }
+}
 \keyword{datasets}
-

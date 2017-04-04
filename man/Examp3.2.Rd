@@ -25,20 +25,24 @@ linear models and generalized linear models.
  ex32$breed1   <- factor(ex32$breed)
  
  fm3.4 <- 
-          lmerTest::lmer(
-                          formula   = Ww ~ sex + agew + breed1 + (1|sire_id1:breed1)
-                        , data      = ex32
-                        , REML      = TRUE
-                        , contrasts = list(sex = "contr.SAS", breed1 = "contr.SAS")
-                     )
+  lmerTest::lmer(
+         formula    = Ww ~ sex + agew + breed1 + (1|sire_id1:breed1)
+       , data       = ex32
+       , REML       = TRUE
+       , control    = lmerControl()
+       , start      = NULL
+       , verbose    = 0L
+    #  , subset
+    #  , weights
+    #  , na.action
+    #  , offset
+       , contrasts  = list(sex = "contr.SAS", breed1 = "contr.SAS")
+       , devFunOnly = FALSE
+    #  , ...
+       )                       
  summary(fm3.4)
  lmerTest::anova(object = fm3.4, ddf = "Satterthwaite")
- lmerTest::lsmeans(model = fm3.4, test.effs = "breed1")
-}
-\author{
-\enumerate{
-         \item  Muhammad Yaseen (\email{myaseen208@gmail.com})
-         }
+ lmerTest::lsmeansLT(model = fm3.4, test.effs = "breed1")
 }
 \references{
 \enumerate{
@@ -49,5 +53,9 @@ linear models and generalized linear models.
 \seealso{
 \code{\link{ex124}}
 }
+\author{
+\enumerate{
+         \item  Muhammad Yaseen (\email{myaseen208@gmail.com})
+         }
+}
 \keyword{datasets}
-

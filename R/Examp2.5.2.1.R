@@ -15,7 +15,7 @@
 #'    \code{\link{ex124}}
 #' @importFrom ggplot2 ggplot
 #' @importFrom lme4 lmer
-#' @importFrom lmerTest lsmeans
+#' @importFrom lmerTest lsmeansLT
 #' @examples
 #' #-------------------------------------------------------------
 #' ## Example 2.5.2.1 p-68
@@ -30,12 +30,25 @@
 #' library(lme4)
 #' str(ex125)
 #' 
-#' fm2.10 <- lme4::lmer(formula = Pcv ~ dose*Drug + (1|Region/Drug), data=ex125, REML = TRUE, 
-#'                    contrasts = list(dose = "contr.SAS", Drug = "contr.SAS")
-#'                    )
+#' fm2.10 <- 
+#'   lme4::lmer(
+#'          formula    = Pcv ~ dose*Drug + (1|Region/Drug)
+#'        , data       = ex125
+#'        , REML       = TRUE
+#'        , control    = lmerControl()
+#'        , start      = NULL
+#'        , verbose    = 0L
+#'     #  , subset
+#'     #  , weights
+#'     #  , na.action
+#'     #  , offset
+#'        , contrasts  = list(dose = "contr.SAS", Drug = "contr.SAS")
+#'        , devFunOnly = FALSE
+#'     #  , ...
+#'        )                       
 #' summary(fm2.10)
 #' anova(fm2.10)
 #' summary(fm2.10)$vcov
 #' library(lmerTest)  
-#' lmerTest::lsmeans(model = fm2.10, test.effs="dose:Drug")
+#' lmerTest::lsmeansLT(model = fm2.10, test.effs="dose:Drug")
 NULL

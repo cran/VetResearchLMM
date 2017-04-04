@@ -27,7 +27,22 @@
 #'  
 #' library(lme4)
 #' str(ex127)
-#' fm2.8 <- lme4::lmer(formula = Ww~(1|sire), data=ex127, REML = TRUE)
+#' fm2.8 <- 
+#'   lme4::lmer(
+#'          formula    = Ww~(1|sire)
+#'        , data       = ex127
+#'        , REML       = TRUE
+#'        , control    = lmerControl()
+#'        , start      = NULL
+#'        , verbose    = 0L
+#'     #  , subset
+#'     #  , weights
+#'     #  , na.action
+#'     #  , offset
+#'        , contrasts  = NULL
+#'        , devFunOnly = FALSE
+#'     #  , ...
+#'        )  
 #' summary(fm2.8)
 #' lme4::fixef(fm2.8)
 #' lme4::ranef(fm2.8)

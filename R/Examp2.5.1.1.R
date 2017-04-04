@@ -28,9 +28,22 @@
 #' library(lme4)
 #' str(ex125)
 #' 
-#' fm2.9 <- lme4::lmer(formula = Pcv ~ dose*Drug + (1|Region/Drug), data=ex125, REML = TRUE, 
-#'                     contrasts = list(dose = "contr.SAS", Drug = "contr.SAS")
-#'                     )
+#' fm2.9 <- 
+#'   lme4::lmer(
+#'          formula    = Pcv ~ dose*Drug + (1|Region/Drug)
+#'        , data       = ex125
+#'        , REML       = TRUE
+#'        , control    = lmerControl()
+#'        , start      = NULL
+#'        , verbose    = 0L
+#'     #  , subset
+#'     #  , weights
+#'     #  , na.action
+#'     #  , offset
+#'        , contrasts  = list(dose = "contr.SAS", Drug = "contr.SAS")
+#'        , devFunOnly = FALSE
+#'     #  , ...
+#'        )                       
 #'  summary(fm2.9)
 #'  anova(fm2.9)
 #'  summary(fm2.9)$vcov

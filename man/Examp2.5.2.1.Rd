@@ -22,19 +22,27 @@ linear models and generalized linear models.
 library(lme4)
 str(ex125)
 
-fm2.10 <- lme4::lmer(formula = Pcv ~ dose*Drug + (1|Region/Drug), data=ex125, REML = TRUE, 
-                   contrasts = list(dose = "contr.SAS", Drug = "contr.SAS")
-                   )
+fm2.10 <- 
+  lme4::lmer(
+         formula    = Pcv ~ dose*Drug + (1|Region/Drug)
+       , data       = ex125
+       , REML       = TRUE
+       , control    = lmerControl()
+       , start      = NULL
+       , verbose    = 0L
+    #  , subset
+    #  , weights
+    #  , na.action
+    #  , offset
+       , contrasts  = list(dose = "contr.SAS", Drug = "contr.SAS")
+       , devFunOnly = FALSE
+    #  , ...
+       )                       
 summary(fm2.10)
 anova(fm2.10)
 summary(fm2.10)$vcov
 library(lmerTest)  
-lmerTest::lsmeans(model = fm2.10, test.effs="dose:Drug")
-}
-\author{
-\enumerate{
-         \item  Muhammad Yaseen (\email{myaseen208@gmail.com})
-         }
+lmerTest::lsmeansLT(model = fm2.10, test.effs="dose:Drug")
 }
 \references{
 \enumerate{
@@ -45,5 +53,9 @@ lmerTest::lsmeans(model = fm2.10, test.effs="dose:Drug")
 \seealso{
 \code{\link{ex124}}
 }
+\author{
+\enumerate{
+         \item  Muhammad Yaseen (\email{myaseen208@gmail.com})
+         }
+}
 \keyword{datasets}
-

@@ -1,4 +1,4 @@
-#' @title    Examp1.3.2 from Duchateau, L. and Janssen, P. and Rowlands, G. J. (1998).\emph{Linear Mixed Models. An Introduction with applications in Veterinary Research}. International Livestock Research Institute.
+#' #' @title    Examp1.3.2 from Duchateau, L. and Janssen, P. and Rowlands, G. J. (1998).\emph{Linear Mixed Models. An Introduction with applications in Veterinary Research}. International Livestock Research Institute.
 #' @name     Examp1.3.2
 #' @docType  data
 #' @keywords datasets
@@ -24,15 +24,23 @@
 #'  # MODEL PCVdif=drug herd(drug) dose dose*drug;
 #'  # RANDOM herd(drug);
 #'  # RUN;
-#'  
-#'library(lme4)
-# str(ex124)
-# summary(ex124)
-# 
-# ex124$herd1 <- factor(ex124$herd)
-# ex124$drug1 <- factor(ex124$drug)
-# ex124$dose1 <- factor(ex124$dose)
-# 
-# fm1.1 <- aov(PCVdif ~ drug1 + Error(herd1:drug1) + dose1 + dose1:drug1, data=ex124)
-# summary(fm1.1)
+#'
+#' library(lme4)
+#' str(ex124)
+#' summary(ex124)
+#'
+#' ex124$herd1 <- factor(ex124$herd)
+#' ex124$drug1 <- factor(ex124$drug)
+#' ex124$dose1 <- factor(ex124$dose)
+#'
+#' fm1.1 <-
+#'   aov(
+#'       formula     = PCVdif ~ drug1 + Error(herd1:drug1) + dose1 + dose1:drug1
+#'     , data        = ex124
+#'     , projections = FALSE
+#'     , qr          = TRUE
+#'     , contrasts   = NULL
+#'   #  , ...
+#'     )
+#'summary(fm1.1)
 NULL

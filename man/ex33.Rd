@@ -22,11 +22,6 @@ ex33 is.
 \examples{
 data(ex33)
 }
-\author{
-\enumerate{
-         \item  Muhammad Yaseen (\email{myaseen208@gmail.com})
-         }
-}
 \references{
 \enumerate{
 \item Duchateau, L. and Janssen, P. and Rowlands, G. J. (1998).\emph{Linear Mixed Models. An Introduction with applications in Veterinary Research}.
@@ -36,5 +31,9 @@ data(ex33)
 \seealso{
 \code{\link{Examp1.3.2}}
 }
+\author{
+\enumerate{
+         \item  Muhammad Yaseen (\email{myaseen208@gmail.com})
+         }
+}
 \keyword{datasets}
-

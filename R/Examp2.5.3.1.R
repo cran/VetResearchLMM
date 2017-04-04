@@ -42,12 +42,33 @@
 #' library(lme4)
 #' str(ex125)
 #' ex125$Region1 <- factor(ex125$Region)
-#'  fm2.11 <- aov(formula = Pcv ~ Region1 + Drug + Error(Drug:Region1) + dose + dose:Drug, data=ex125)
+#'  fm2.11 <- 
+#'   aov(
+#'       formula     = Pcv ~ Region1 + Drug + Error(Drug:Region1) + dose + dose:Drug
+#'     , data        = ex125
+#'     , projections = FALSE
+#'     , qr          = TRUE
+#'     , contrasts   = NULL
+#'   #  , ...
+#'     )
 #'  summary(fm2.11)
 #' 
-#'  fm2.12 <- lmerTest::lmer(formula = Pcv ~ dose*Drug + (1|Region/Drug), data=ex125, REML = TRUE, 
-#'                     contrasts = list(dose = "contr.SAS", Drug = "contr.SAS")
-#'                     )
+#'  fm2.12 <- 
+#'   lmerTest::lmer(
+#'          formula    = Pcv ~ dose*Drug + (1|Region/Drug)
+#'        , data       = ex125
+#'        , REML       = TRUE
+#'        , control    = lmerControl()
+#'        , start      = NULL
+#'        , verbose    = 0L
+#'     #  , subset
+#'     #  , weights
+#'     #  , na.action
+#'     #  , offset
+#'        , contrasts  = list(dose = "contr.SAS", Drug = "contr.SAS")
+#'        , devFunOnly = FALSE
+#'     #  , ...
+#'        )                       
 #'  summary(fm2.12)
 #'  lmerTest::anova(object = fm2.12, ddf = "Satterthwaite")
 #' 

@@ -14,7 +14,7 @@
 #'    \code{\link{ex124}}
 #' @importFrom ggplot2 ggplot
 #' @importFrom lme4 lmer
-#' @importFrom lmerTest lsmeans
+#' @importFrom lmerTest lsmeansLT
 #' @examples
 #' #-------------------------------------------------------------
 #' ## Example 3.1 Model 1 p-80
@@ -41,15 +41,24 @@
 #'  ex31$herd1 <- factor(ex31$herd)
 #'  
 #'  fm3.1 <- 
-#'           lmerTest::lmer(
-#'                           formula   = PCV2 ~ drug1 + dose1:drug1 + (1|herd1:drug1)
-#'                         , data      = ex31
-#'                         , REML      = TRUE
-#'                         , contrasts = list(dose1 = "contr.SAS", drug1 = "contr.SAS")
-#'                      )
+#'   lmerTest::lmer(
+#'          formula    = PCV2 ~ drug1 + dose1:drug1 + (1|herd1:drug1)
+#'        , data       = ex31
+#'        , REML       = TRUE
+#'        , control    = lmerControl()
+#'        , start      = NULL
+#'        , verbose    = 0L
+#'     #  , subset
+#'     #  , weights
+#'     #  , na.action
+#'     #  , offset
+#'        , contrasts  = list(dose1 = "contr.SAS", drug1 = "contr.SAS")
+#'        , devFunOnly = FALSE
+#'     #  , ...
+#'        )                       
 #'  summary(fm3.1)
 #'  lmerTest::anova(object = fm3.1, ddf = "Satterthwaite")
-#'  lmerTest::lsmeans(model = fm3.1, test.effs = "dose1:drug1")
+#'  lmerTest::lsmeansLT(model = fm3.1, test.effs = "dose1:drug1")
 #'  
 #' #-------------------------------------------------------------
 #' ## Example 3.1 Model 2 p-84
@@ -67,15 +76,24 @@
 #'  ex31$herd1 <- factor(ex31$herd)
 #'  
 #'  fm3.2 <- 
-#'           lmerTest::lmer(
-#'                           formula   = PCV2 ~ PCV1 + drug1 + dose1:drug1 + (1|herd1:drug1)
-#'                         , data      = ex31
-#'                         , REML      = TRUE
-#'                         , contrasts = list(dose1 = "contr.SAS", drug1 = "contr.SAS")
-#'                      )
+#'   lmerTest::lmer(
+#'          formula    = PCV2 ~ PCV1 + drug1 + dose1:drug1 + (1|herd1:drug1)
+#'        , data       = ex31
+#'        , REML       = TRUE
+#'        , control    = lmerControl()
+#'        , start      = NULL
+#'        , verbose    = 0L
+#'     #  , subset
+#'     #  , weights
+#'     #  , na.action
+#'     #  , offset
+#'        , contrasts  = list(dose1 = "contr.SAS", drug1 = "contr.SAS")
+#'        , devFunOnly = FALSE
+#'     #  , ...
+#'        )                       
 #'  summary(fm3.2)
 #'  lmerTest::anova(object = fm3.2, ddf = "Satterthwaite")
-#'  lmerTest::lsmeans(model = fm3.2, test.effs = "herd1:drug1")
+#'  lmerTest::lsmeansLT(model = fm3.2, test.effs = "herd1:drug1")
 #'  
 #' #-------------------------------------------------------------
 #' ## Example 3.1 Model 3 p-86
@@ -93,13 +111,22 @@
 #'  ex31$herd1 <- factor(ex31$herd)
 #'  
 #'  fm3.3 <- 
-#'           lmerTest::lmer(
-#'                           formula   = PCV2 ~ drug1 + PCV1*dose1:drug1 + (1|herd1:drug1)
-#'                         , data      = ex31
-#'                         , REML      = TRUE
-#'                         , contrasts = list(dose1 = "contr.SAS", drug1 = "contr.SAS")
-#'                      )
+#'   lmerTest::lmer(
+#'          formula    = PCV2 ~ drug1 + PCV1*dose1:drug1 + (1|herd1:drug1)
+#'        , data       = ex31
+#'        , REML       = TRUE
+#'        , control    = lmerControl()
+#'        , start      = NULL
+#'        , verbose    = 0L
+#'     #  , subset
+#'     #  , weights
+#'     #  , na.action
+#'     #  , offset
+#'        , contrasts  = list(dose1 = "contr.SAS", drug1 = "contr.SAS")
+#'        , devFunOnly = FALSE
+#'     #  , ...
+#'        )                       
 #'  summary(fm3.3)
 #'  lmerTest::anova(object = fm3.3, ddf = "Satterthwaite")
-#'  lmerTest::lsmeans(model = fm3.3, test.effs = "dose1:drug1")
+#'  lmerTest::lsmeansLT(model = fm3.3, test.effs = "dose1:drug1")
 NULL

@@ -15,7 +15,7 @@
 #'    \code{\link{ex124}}
 #' @importFrom ggplot2 ggplot
 #' @importFrom lme4 lmer
-#' @importFrom lmerTest lsmeans
+#' @importFrom lmerTest lsmeansLT
 #' @examples
 #' #-------------------------------------------------------------
 #' ## Example 3.3 Model 1 p-88
@@ -31,23 +31,41 @@
 #'  str(ex33)
 #'    
 #'  fm3.5 <- 
-#'           lme4::lmer(
-#'                        formula   = PCV ~ breed + breed:time + (1|animal_id:breed)
-#'                      , data      = ex33
-#'                      , REML      = TRUE
-#'                    #  , contrasts = list(breed = "contr.SAS")
-#'                     )
+#'   lme4::lmer(
+#'          formula    = PCV ~ breed + breed:time + (1|animal_id:breed)
+#'        , data       = ex33
+#'        , REML       = TRUE
+#'        , control    = lmerControl()
+#'        , start      = NULL
+#'        , verbose    = 0L
+#'     #  , subset
+#'     #  , weights
+#'     #  , na.action
+#'     #  , offset
+#'        , contrasts  = list(breed = "contr.SAS")
+#'        , devFunOnly = FALSE
+#'     #  , ...
+#'        )                       
 #'  summary(fm3.5)
 #'  anova(fm3.5)
 #'  
 #'  
 #'  fm3.6 <- 
-#'        lmerTest::lmer(
-#'                        formula   = PCV ~ breed + breed:time + (1|animal_id:breed)
-#'                      , data      = ex33
-#'                      , REML      = TRUE
-#'                      , contrasts = list(breed = "contr.SAS")
-#'                     )
+#'   lmerTest::lmer(
+#'          formula    = PCV ~ breed + breed:time + (1|animal_id:breed)
+#'        , data       = ex33
+#'        , REML       = TRUE
+#'        , control    = lmerControl()
+#'        , start      = NULL
+#'        , verbose    = 0L
+#'     #  , subset
+#'     #  , weights
+#'     #  , na.action
+#'     #  , offset
+#'        , contrasts  = list(breed = "contr.SAS")
+#'        , devFunOnly = FALSE
+#'     #  , ...
+#'        )                       
 #'  summary(fm3.6)
 #'  lmerTest::anova(object = fm3.6, ddf = "Satterthwaite")
 #'
@@ -61,16 +79,16 @@
 #'
 #'  library(nlme)  
 #'  fm3.7 <- 
-#'           nlme::gls(
-#'                        model       = PCV ~ breed + breed:time
-#'                      , data        = ex33
-#'                      , correlation = corCompSymm(, form = ~ 1|animal_id/breed)
-#'                      , weights     = NULL
-#'                    # , subset      =
-#'                      , method      = "REML" # c("REML", "ML")
-#'                      , na.action   = na.fail 
-#'                      , control     = list()
-#'                     )
+#'       nlme::gls(
+#'             model       = PCV ~ breed + breed:time
+#'           , data        = ex33
+#'           , correlation = corCompSymm(, form = ~ 1|animal_id/breed)
+#'           , weights     = NULL
+#'         # , subset      =
+#'           , method      = "REML" # c("REML", "ML")
+#'           , na.action   = na.fail 
+#'           , control     = list()
+#'           )
 #'  summary(fm3.7)
 #'  anova(fm3.7)
 #'  
@@ -83,23 +101,41 @@
 #' # RUN;
 #'      
 #'  fm3.8 <- 
-#'           lme4::lmer(
-#'                        formula   = PCV ~ time + breed + breed:time + (1|animal_id:breed)
-#'                      , data      = ex33
-#'                      , REML      = TRUE
-#'                      , contrasts = list(breed = "contr.SAS")
-#'                     )
+#'   lme4::lmer(
+#'          formula    = PCV ~ time + breed + breed:time + (1|animal_id:breed)
+#'        , data       = ex33
+#'        , REML       = TRUE
+#'        , control    = lmerControl()
+#'        , start      = NULL
+#'        , verbose    = 0L
+#'     #  , subset
+#'     #  , weights
+#'     #  , na.action
+#'     #  , offset
+#'        , contrasts  = list(breed = "contr.SAS")
+#'        , devFunOnly = FALSE
+#'     #  , ...
+#'        )
 #'  summary(fm3.8)
 #'  anova(fm3.8)
 #'
 #'    
 #'  fm3.9 <- 
-#'        lmerTest::lmer(
-#'                        formula   = PCV ~ time + breed + breed:time + (1|animal_id:breed)
-#'                      , data      = ex33
-#'                      , REML      = TRUE
-#'                      , contrasts = list(breed = "contr.SAS")
-#'                     )
+#'   lmerTest::lmer(
+#'          formula    = PCV ~ time + breed + breed:time + (1|animal_id:breed)
+#'        , data       = ex33
+#'        , REML       = TRUE
+#'        , control    = lmerControl()
+#'        , start      = NULL
+#'        , verbose    = 0L
+#'     #  , subset
+#'     #  , weights
+#'     #  , na.action
+#'     #  , offset
+#'        , contrasts  = list(breed = "contr.SAS")
+#'        , devFunOnly = FALSE
+#'     #  , ...
+#'        )
 #'  summary(fm3.9)
 #'  lmerTest::anova(object = fm3.9, ddf = "Satterthwaite", type = 3)
 #'  
@@ -113,18 +149,17 @@
 #'
 #'  library(nlme)  
 #'  fm3.10 <- 
-#'           nlme::gls(
-#'                        model       = PCV ~ breed + breed:time
-#'                      , data        = ex33
-#'                      , correlation = corAR1(, form = ~ 1|animal_id/breed)
-#'                      , weights     = NULL
-#'                    # , subset      =
-#'                      , method      = "REML" # c("REML", "ML")
-#'                      , na.action   = na.fail 
-#'                      , control     = list()
-#'                     )
+#'       nlme::gls(
+#'             model       = PCV ~ breed + breed:time
+#'           , data        = ex33
+#'           , correlation = corAR1(, form = ~ 1|animal_id/breed)
+#'           , weights     = NULL
+#'         # , subset      =
+#'           , method      = "REML" # c("REML", "ML")
+#'           , na.action   = na.fail 
+#'           , control     = list()
+#'           )
 #'  summary(fm3.10)
-#'
 #'  anova(fm3.10)
 #'
 #' # PROC MIXED DATA=ex33;
@@ -134,21 +169,20 @@
 #' # RUN;
 #' 
 #'
-#'  library(nlme)  
-#'   # fm3.11 <- 
-#'   #          nlme::gls(
-#'   #                       model       = PCV ~ breed + breed:time
-#'   #                     , data        = ex33
-#'   #                   #  , random      = ~1|animal_id/breed
-#'   #                     , correlation = corSymm(, form = ~ 1|animal_id/breed)
-#'   #                     , weights     = NULL
-#'   #                   # , subset      =
-#'   #                     , method      = "REML" # c("REML", "ML")
-#'   #                     , na.action   = na.fail 
-#'   #                     , control     = list()
-#'   #                    )
-#'   #                    
-#'   # summary(fm3.11)
-#'   # anova(fm3.11)
-#'      
+#'  library(nlme)
+#' # fm3.11 <- 
+#' #      nlme::gls(
+#' #            model       = PCV ~ breed + breed:time
+#' #          , data        = ex33
+#' #          , random      = ~1|animal_id/breed
+#' #          , correlation = corAR1(, form = ~ 1|animal_id/breed)
+#' #          , weights     = NULL
+#' #        # , subset      =
+#' #          , method      = "REML" # c("REML", "ML")
+#' #          , na.action   = na.fail 
+#' #          , control     = list()
+#' #          )
+#' # summary(fm3.11)
+#' # anova(fm3.11)
+#'       
 NULL
