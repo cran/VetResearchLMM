@@ -21,11 +21,11 @@ linear models and generalized linear models.
  #                drug 0  0 dose 1 -1 drug*dose 0.5 -0.5  0.5 -0.5,
  #                drug 0  0 dose 0  0 drug*dose 0.5 -0.5 -0.5  0.5;
  # RUN;
- 
- library(lme4)
+
+ library(lmerTest)
  str(ex125)
  ex125$Region1 <- factor(ex125$Region)
- fm2.14 <- 
+ fm2.14 <-
   lmerTest::lmer(
          formula    = Pcv ~ dose*Drug + (1|Region/Drug)
        , data       = ex125
@@ -40,10 +40,10 @@ linear models and generalized linear models.
        , contrasts  = list(dose = "contr.SAS", Drug = "contr.SAS")
        , devFunOnly = FALSE
     #  , ...
-       )                       
+       )
  summary(fm2.14)
- lmerTest::anova(object = fm2.14, ddf = "Satterthwaite")
- 
+ anova(object = fm2.14, ddf = "Satterthwaite")
+
  library(multcomp)
  Contrasts3 <-
            matrix(c(
@@ -56,10 +56,13 @@ linear models and generalized linear models.
                  , rownames(summary(fm2.14)$coef)
                 )
                )
- 
+
  Contrasts3
  summary(glht(fm2.14, linfct=Contrasts3))
- 
+
+if(packageVersion("lmerTest") >= "3.0")
+   contest(fm2.14, Contrasts3, joint = FALSE)
+
 }
 \references{
 \enumerate{

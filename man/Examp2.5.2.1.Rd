@@ -18,12 +18,12 @@ linear models and generalized linear models.
  # RANDOM region drug*region;
  # LSMEANS drug*dose;
  # RUN;
- 
-library(lme4)
+
+library(lmerTest)
 str(ex125)
 
-fm2.10 <- 
-  lme4::lmer(
+fm2.10 <-
+  lmerTest::lmer(
          formula    = Pcv ~ dose*Drug + (1|Region/Drug)
        , data       = ex125
        , REML       = TRUE
@@ -37,12 +37,11 @@ fm2.10 <-
        , contrasts  = list(dose = "contr.SAS", Drug = "contr.SAS")
        , devFunOnly = FALSE
     #  , ...
-       )                       
+       )
 summary(fm2.10)
 anova(fm2.10)
 summary(fm2.10)$vcov
-library(lmerTest)  
-lmerTest::lsmeansLT(model = fm2.10, test.effs="dose:Drug")
+lsmeansLT(model = fm2.10)
 }
 \references{
 \enumerate{

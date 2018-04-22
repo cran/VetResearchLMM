@@ -21,8 +21,8 @@ linear models and generalized linear models.
  library(lme4)
  options(contrasts = c(factor = "contr.SAS", ordered = "contr.poly"))
  str(ex33)
-   
- fm3.5 <- 
+
+ fm3.5 <-
   lme4::lmer(
          formula    = PCV ~ breed + breed:time + (1|animal_id:breed)
        , data       = ex33
@@ -37,12 +37,12 @@ linear models and generalized linear models.
        , contrasts  = list(breed = "contr.SAS")
        , devFunOnly = FALSE
     #  , ...
-       )                       
+       )
  summary(fm3.5)
  anova(fm3.5)
- 
- 
- fm3.6 <- 
+
+ library(lmerTest)
+ fm3.6 <-
   lmerTest::lmer(
          formula    = PCV ~ breed + breed:time + (1|animal_id:breed)
        , data       = ex33
@@ -57,9 +57,9 @@ linear models and generalized linear models.
        , contrasts  = list(breed = "contr.SAS")
        , devFunOnly = FALSE
     #  , ...
-       )                       
+       )
  summary(fm3.6)
- lmerTest::anova(object = fm3.6, ddf = "Satterthwaite")
+ anova(object = fm3.6, ddf = "Satterthwaite")
 
 
 # PROC MIXED DATA=ex33;
@@ -69,8 +69,8 @@ linear models and generalized linear models.
 # RUN;
 
 
- library(nlme)  
- fm3.7 <- 
+ library(nlme)
+ fm3.7 <-
       nlme::gls(
             model       = PCV ~ breed + breed:time
           , data        = ex33
@@ -78,21 +78,21 @@ linear models and generalized linear models.
           , weights     = NULL
         # , subset      =
           , method      = "REML" # c("REML", "ML")
-          , na.action   = na.fail 
+          , na.action   = na.fail
           , control     = list()
           )
  summary(fm3.7)
  anova(fm3.7)
- 
- 
- 
+
+
+
 # PROC MIXED DATA=ex33;
 # CLASS breed animal_id;
 # MODEL pcv = time breed breed*time/SOLUTION;
 # RANDOM animal_id(breed)/SOLUTION;
 # RUN;
-     
- fm3.8 <- 
+
+ fm3.8 <-
   lme4::lmer(
          formula    = PCV ~ time + breed + breed:time + (1|animal_id:breed)
        , data       = ex33
@@ -111,8 +111,8 @@ linear models and generalized linear models.
  summary(fm3.8)
  anova(fm3.8)
 
-   
- fm3.9 <- 
+
+ fm3.9 <-
   lmerTest::lmer(
          formula    = PCV ~ time + breed + breed:time + (1|animal_id:breed)
        , data       = ex33
@@ -129,9 +129,9 @@ linear models and generalized linear models.
     #  , ...
        )
  summary(fm3.9)
- lmerTest::anova(object = fm3.9, ddf = "Satterthwaite", type = 3)
- 
- 
+ anova(object = fm3.9, ddf = "Satterthwaite", type = 3)
+
+
 # PROC MIXED DATA=ex33;
 # CLASS breed animal_id;
 # MODEL pcv = breed breed*time/SOLUTION;
@@ -139,8 +139,8 @@ linear models and generalized linear models.
 # RUN;
 
 
- library(nlme)  
- fm3.10 <- 
+ library(nlme)
+ fm3.10 <-
       nlme::gls(
             model       = PCV ~ breed + breed:time
           , data        = ex33
@@ -148,7 +148,7 @@ linear models and generalized linear models.
           , weights     = NULL
         # , subset      =
           , method      = "REML" # c("REML", "ML")
-          , na.action   = na.fail 
+          , na.action   = na.fail
           , control     = list()
           )
  summary(fm3.10)
@@ -162,7 +162,7 @@ linear models and generalized linear models.
 
 
  library(nlme)
-# fm3.11 <- 
+# fm3.11 <-
 #      nlme::gls(
 #            model       = PCV ~ breed + breed:time
 #          , data        = ex33
@@ -171,12 +171,12 @@ linear models and generalized linear models.
 #          , weights     = NULL
 #        # , subset      =
 #          , method      = "REML" # c("REML", "ML")
-#          , na.action   = na.fail 
+#          , na.action   = na.fail
 #          , control     = list()
 #          )
 # summary(fm3.11)
 # anova(fm3.11)
-      
+
 }
 \references{
 \enumerate{

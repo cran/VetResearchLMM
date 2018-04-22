@@ -18,13 +18,13 @@ linear models and generalized linear models.
 # RANDOM sire_id(breed)/SOLUTION;
 # LSMEANS breed/ADJUST = TUKEY;
 # RUN;
- 
+
  library(lmerTest)
  str(ex32)
  ex32$sire_id1 <- factor(ex32$sire_id)
  ex32$breed1   <- factor(ex32$breed)
- 
- fm3.4 <- 
+
+ fm3.4 <-
   lmerTest::lmer(
          formula    = Ww ~ sex + agew + breed1 + (1|sire_id1:breed1)
        , data       = ex32
@@ -39,10 +39,10 @@ linear models and generalized linear models.
        , contrasts  = list(sex = "contr.SAS", breed1 = "contr.SAS")
        , devFunOnly = FALSE
     #  , ...
-       )                       
+       )
  summary(fm3.4)
- lmerTest::anova(object = fm3.4, ddf = "Satterthwaite")
- lmerTest::lsmeansLT(model = fm3.4, test.effs = "breed1")
+ anova(object = fm3.4, ddf = "Satterthwaite")
+ lsmeansLT(model = fm3.4)
 }
 \references{
 \enumerate{

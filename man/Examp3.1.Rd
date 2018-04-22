@@ -22,17 +22,17 @@ Examp3.1 is.
 # CONTRAST 'Berenil dif 2 doses' dose(drug) 1 -1 0;
 # CONTRAST 'Ber vs Sam at dose 1' drug 1 -1 dose(drug) 1 0 -l;
 # CONTRAST 'some difference' drug 1 -1 dose(drug) 0.5 0.5 -1,
-#           drug 0 0 dose(drug) 1 -1 0; 
+#           drug 0 0 dose(drug) 1 -1 0;
 # LSMEANS dose(drug);
 # RUN;
- 
+
  library(lmerTest)
  str(ex31)
  ex31$drug1 <- factor(ex31$drug)
  ex31$dose1 <- factor(ex31$dose)
  ex31$herd1 <- factor(ex31$herd)
- 
- fm3.1 <- 
+
+ fm3.1 <-
   lmerTest::lmer(
          formula    = PCV2 ~ drug1 + dose1:drug1 + (1|herd1:drug1)
        , data       = ex31
@@ -47,11 +47,11 @@ Examp3.1 is.
        , contrasts  = list(dose1 = "contr.SAS", drug1 = "contr.SAS")
        , devFunOnly = FALSE
     #  , ...
-       )                       
+       )
  summary(fm3.1)
- lmerTest::anova(object = fm3.1, ddf = "Satterthwaite")
- lmerTest::lsmeansLT(model = fm3.1, test.effs = "dose1:drug1")
- 
+ anova(object = fm3.1, ddf = "Satterthwaite")
+ lsmeansLT(model = fm3.1, test.effs = "dose1:drug1")
+
 #-------------------------------------------------------------
 ## Example 3.1 Model 2 p-84
 #-------------------------------------------------------------
@@ -60,14 +60,14 @@ Examp3.1 is.
 # MODEL PCV2=PCV1 drug dose(drug)/solution ddfm=satterth;
 # RANDOM herd(drug);
 # RUN;
- 
+
  library(lmerTest)
  str(ex31)
  ex31$drug1 <- factor(ex31$drug)
  ex31$dose1 <- factor(ex31$dose)
  ex31$herd1 <- factor(ex31$herd)
- 
- fm3.2 <- 
+
+ fm3.2 <-
   lmerTest::lmer(
          formula    = PCV2 ~ PCV1 + drug1 + dose1:drug1 + (1|herd1:drug1)
        , data       = ex31
@@ -82,11 +82,11 @@ Examp3.1 is.
        , contrasts  = list(dose1 = "contr.SAS", drug1 = "contr.SAS")
        , devFunOnly = FALSE
     #  , ...
-       )                       
+       )
  summary(fm3.2)
- lmerTest::anova(object = fm3.2, ddf = "Satterthwaite")
- lmerTest::lsmeansLT(model = fm3.2, test.effs = "herd1:drug1")
- 
+ anova(object = fm3.2, ddf = "Satterthwaite")
+ lsmeansLT(model = fm3.2, test.effs = "herd1:drug1")
+
 #-------------------------------------------------------------
 ## Example 3.1 Model 3 p-86
 #-------------------------------------------------------------
@@ -95,14 +95,14 @@ Examp3.1 is.
 # MODEL PCV2=drug dose(drug) PCV1*dose(drug)/solution ddfm=satterth;
 # RANDOM herd(drug);
 # RUN;
- 
+
  library(lmerTest)
  str(ex31)
  ex31$drug1 <- factor(ex31$drug)
  ex31$dose1 <- factor(ex31$dose)
  ex31$herd1 <- factor(ex31$herd)
- 
- fm3.3 <- 
+
+ fm3.3 <-
   lmerTest::lmer(
          formula    = PCV2 ~ drug1 + PCV1*dose1:drug1 + (1|herd1:drug1)
        , data       = ex31
@@ -117,10 +117,10 @@ Examp3.1 is.
        , contrasts  = list(dose1 = "contr.SAS", drug1 = "contr.SAS")
        , devFunOnly = FALSE
     #  , ...
-       )                       
+       )
  summary(fm3.3)
- lmerTest::anova(object = fm3.3, ddf = "Satterthwaite")
- lmerTest::lsmeansLT(model = fm3.3, test.effs = "dose1:drug1")
+ anova(object = fm3.3, ddf = "Satterthwaite")
+ lsmeansLT(model = fm3.3, test.effs = "dose1:drug1")
 }
 \references{
 \enumerate{

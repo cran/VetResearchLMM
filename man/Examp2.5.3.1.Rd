@@ -17,8 +17,8 @@ linear models and generalized linear models.
  # MODEL pcv=region drug region*drug dose drug*dose;
  # RANDOM region drug*region;
  # RUN;
- 
- 
+
+
  # PROC MIXED DATA=ex125;
  # CLASS drug dose region;
  # MODEL pcv=drug dose drug*dose / ddfm=satterth;
@@ -30,11 +30,11 @@ linear models and generalized linear models.
  # ESTIMATE 'Samorin high' INTERCEPT 1 drug 0 1 dose 1 0
  #                             drug*dose 0 0 1 0;
  # RUN;
- 
+
 library(lme4)
 str(ex125)
 ex125$Region1 <- factor(ex125$Region)
- fm2.11 <- 
+ fm2.11 <-
   aov(
       formula     = Pcv ~ Region1 + Drug + Error(Drug:Region1) + dose + dose:Drug
     , data        = ex125
@@ -45,7 +45,7 @@ ex125$Region1 <- factor(ex125$Region)
     )
  summary(fm2.11)
 
- fm2.12 <- 
+ fm2.12 <-
   lmerTest::lmer(
          formula    = Pcv ~ dose*Drug + (1|Region/Drug)
        , data       = ex125
@@ -60,9 +60,9 @@ ex125$Region1 <- factor(ex125$Region)
        , contrasts  = list(dose = "contr.SAS", Drug = "contr.SAS")
        , devFunOnly = FALSE
     #  , ...
-       )                       
+       )
  summary(fm2.12)
- lmerTest::anova(object = fm2.12, ddf = "Satterthwaite")
+ anova(object = fm2.12, ddf = "Satterthwaite")
 
 library(multcomp)
 Contrasts1 <-
